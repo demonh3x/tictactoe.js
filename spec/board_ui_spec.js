@@ -15,7 +15,7 @@ describe('The board interface', function() {
   });
 
   afterEach(function() {
-    ui.clear();
+    ui._clear();
   });
 
   it('displays an empty board', function() {

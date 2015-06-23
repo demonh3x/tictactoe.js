@@ -25,6 +25,28 @@ describe('Board', function() {
       '',  '', ''
     ]);
   });
+
+  it('exposes the line distribution', function() {
+    var board = new Tictactoe.Board([
+      'x', 'x', 'o',
+      'o', 'o', 'x',
+      'x', 'o', 'x'
+    ]);
+
+    expect(board.lines()).toEqual([
+      //horizontal
+      ['x', 'x', 'o'],
+      ['o', 'o', 'x'],
+      ['x', 'o', 'x'],
+
+      //vertical
+      ['x', 'o', 'x'],
+      ['x', 'o', 'o'],
+      ['o', 'x', 'x'],
+
+      //diagonal
+      ['x', 'o', 'x'],
+      ['o', 'o', 'x']
+    ]);
+  });
 });
-
-

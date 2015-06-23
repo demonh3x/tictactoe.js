@@ -1,6 +1,7 @@
 (function() {
-  function Game(display, players, board) {
+  function Game(display, rules, players, board) {
     this._display = display;
+    this._rules = rules;
     this._players = players;
     this._currentPlayerIndex = 0;
     this._board = board;
@@ -10,10 +11,18 @@
     this._display.update(this._board);
   }
 
+  Game.prototype.isOngoing = function() {
+    return !this._isFinished();
+  }
+
+  Game.prototype._isFinished = function() {
+    return this._rules.outcomeOf(this._board).isFinished;
+  }
+
   Game.prototype.doTurn = function() {
-    var nextBoard = this._currentPlayer().placeMark(this._board);
+    this._currentPlayer().placeMark(this._board);
     this._advanceTurn();
-    this._display.update(nextBoard);
+    this._display.update(this._board);
   }
 
   Game.prototype._currentPlayer = function() {

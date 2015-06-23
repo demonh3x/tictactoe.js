@@ -1,23 +1,24 @@
 describe('Game', function() {
   var boardUi;
-  var game;
   var playerX;
   var playerO;
+  var game;
 
   beforeEach(function () {
     boardUi = createDisplaySpy();
     playerX = createPlayerStub('x');
     playerO = createPlayerStub('o');
-    var board = new Tictactoe.Board([
-      '', '', '',
-      '', '', '',
-      '', '', ''
-    ]);
-    game = new Tictactoe.Game(boardUi, [playerX, playerO], board);
   });
 
   it('displays an empty board after starting', function() {
+    var game = gameStartingWith(boardWithMarks([
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ]));
+
     game.start();
+
     expect(boardUi.receivedBoard.marks()).toEqual([
       '', '', '',
       '', '', '',
@@ -26,8 +27,13 @@ describe('Game', function() {
   });
 
   it('displays the board with player x mark after first turn', function() {
-    playerX.willPlaceMarkAt(0);
+    var game = gameStartingWith(boardWithMarks([
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ]));
 
+    playerX.willPlaceMarkAt(0);
     game.doTurn();
 
     expect(boardUi.receivedBoard.marks()).toEqual([
@@ -38,6 +44,11 @@ describe('Game', function() {
   });
 
   it('displays the board with player o mark after second turn', function() {
+    var game = gameStartingWith(boardWithMarks([
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ]));
     playerX.willPlaceMarkAt(1);
     playerO.willPlaceMarkAt(2);
 
@@ -52,6 +63,11 @@ describe('Game', function() {
   });
 
   it('displays the board with second player x mark after third turn', function() {
+    var game = gameStartingWith(boardWithMarks([
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ]));
     playerX.willPlaceMarkAt(1);
     playerO.willPlaceMarkAt(2);
     playerX.willPlaceMarkAt(4);
@@ -65,6 +81,36 @@ describe('Game', function() {
       '', 'x', '',
       '', '',  ''
     ]);
+  });
+
+  it('is no longer ongoing when a line is made', function() {
+    var game = gameStartingWith(boardWithMarks([
+      '', 'x', 'o',
+      '', 'x', 'o',
+      '', 'x', ''
+    ]));
+
+    expect(game.isOngoing()).toEqual(false);
+  });
+
+  it('is no longer ongoing when the board is full', function() {
+    var game = gameStartingWith(boardWithMarks([
+      'o', 'x', 'o',
+      'x', 'x', 'o',
+      'x', 'o', 'x'
+    ]));
+
+    expect(game.isOngoing()).toEqual(false);
+  });
+
+  it('is ongoing before a line is made and not full', function() {
+    var game = gameStartingWith(boardWithMarks([
+      '', 'x', 'o',
+      '', 'x', 'o',
+      '', '',  ''
+    ]));
+
+    expect(game.isOngoing()).toEqual(true);
   });
 
   function createDisplaySpy() {
@@ -86,5 +132,14 @@ describe('Game', function() {
         return board.placeMarkAt(mark, space);
       }
     };
+  }
+
+  function boardWithMarks(marks) {
+    return new Tictactoe.Board(marks);
+  }
+
+  function gameStartingWith(board) {
+    var rules = new Tictactoe.Rules();
+    return new Tictactoe.Game(boardUi, rules, [playerX, playerO], board);
   }
 });

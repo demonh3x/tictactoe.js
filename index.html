@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tictactoe</title>
+    <script src="dist/tictactoe.js"></script>
+    <style>
+    </style>
+    <script>
+      $(document).ready(function() {
+        var ui = new Tictactoe.BoardUi();
+        ui.setOnMoveListener(function(space){console.log(space);});
+        ui.update([null, null]);
+      });
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

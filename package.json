@@ -9,6 +9,7 @@
   "homepage": "https://github.com/demonh3x/tictactoe.js",
   "devDependencies": {
     "gulp": "^3.8.11",
-    "gulp-jasmine-phantom": "^1.1.2"
+    "gulp-jasmine-phantom": "^1.1.2",
+    "gulp-concat": "^2.5.2"
   }
 }

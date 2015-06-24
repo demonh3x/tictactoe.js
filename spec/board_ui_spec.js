@@ -19,11 +19,11 @@ describe('The board interface', function() {
   });
 
   it('displays an empty board', function() {
-    var emptyBoard = [
+    var emptyBoard = board([
       null, null, null,
       null, null, null,
       null, null, null
-    ];
+    ]);
     ui.update(emptyBoard);
 
     expect(displayedMarks()).toEqual([
@@ -34,12 +34,12 @@ describe('The board interface', function() {
   });
 
   it('displays a board with some marks', function() {
-    var board = [
+    var boardWithSomeMarks = board([
       'x',  'o',  null,
       null, 'x',  null,
       null, 'x',  'o'
-    ];
-    ui.update(board);
+    ]);
+    ui.update(boardWithSomeMarks);
 
     expect(displayedMarks()).toEqual([
         'x', 'o', '',
@@ -49,11 +49,11 @@ describe('The board interface', function() {
   });
 
   it('sends the move to the handler when clicking the first space', function() {
-    var emptyBoard = [
+    var emptyBoard = board([
       null, null, null,
       null, null, null,
       null, null, null
-    ];
+    ]);
     ui.update(emptyBoard);
     nthSpace(0).click();
 
@@ -61,16 +61,20 @@ describe('The board interface', function() {
   });
 
   it('sends the move to the handler when clicking the fifth space', function() {
-    var emptyBoard = [
+    var emptyBoard = board([
       null, null, null,
       null, null, null,
       null, null, null
-    ];
+    ]);
     ui.update(emptyBoard);
     nthSpace(4).click();
 
     expect(movesHandler.receivedSpaceToMove).toEqual(4);
   });
+
+  function board(marks) {
+    return new Tictactoe.Board(marks);
+  }
 
   function displayedMarks() {
     return $.map($('[data-board] [data-mark]'), function(space) {

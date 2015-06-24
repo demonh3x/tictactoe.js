@@ -7,9 +7,9 @@
     this._onMoveListener = listener;
   };
 
-  BoardUi.prototype.update = function(marks) {
+  BoardUi.prototype.update = function(board) {
     this._clear();
-    this._createBoardWith(marks);
+    this._createBoardWith(board.marks());
   };
 
   BoardUi.prototype._clear = function() {

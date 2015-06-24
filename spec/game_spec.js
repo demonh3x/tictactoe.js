@@ -215,6 +215,25 @@ describe('Game', function() {
     expect(game.isOngoing()).toEqual(true);
   });
 
+  it('will not place more marks when is no longer ongoing', function() {
+    var game = gameStartingWith(boardWithMarks([
+      '', 'x', 'o',
+      '', 'x', 'o',
+      '', 'x', ''
+    ]));
+
+    playerX.willPlaceMarkAt(0);
+
+    game.start();
+    game.doTurn();
+
+    expect(display.receivedBoard.marks()).toEqual([
+      '', 'x', 'o',
+      '', 'x', 'o',
+      '', 'x', ''
+    ]);
+  });
+
   function createDisplaySpy() {
     return {
       update: function(board) {

@@ -29,6 +29,10 @@
   }
 
   Game.prototype.doTurn = function() {
+    if (this._isFinished()) {
+      return;
+    }
+
     var currentPlayer = this._currentPlayer();
     if (currentPlayer.isReady()) {
       var move = this._currentPlayer().getMove();

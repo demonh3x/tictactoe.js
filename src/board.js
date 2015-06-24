@@ -4,12 +4,23 @@
   }
 
   Board.prototype.marks = function() {
-    return this._placedMarks;
+    return this._placedMarks.slice();
+  }
+
+  Board.prototype.availableSpaces = function() {
+    var availableSpaces = [];
+    this._placedMarks.forEach(function(mark, space){
+      if (!mark){
+        availableSpaces.push(space);
+      }
+    });
+    return availableSpaces;
   }
 
   Board.prototype.placeMarkAt = function(mark, space) {
-    this._placedMarks[space] = mark;
-    return this;
+    var updatedMarks = this._placedMarks.slice();
+    updatedMarks[space] = mark;
+    return new Board(updatedMarks);
   }
 
   Board.prototype.lines = function() {

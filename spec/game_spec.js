@@ -165,7 +165,7 @@ describe('Game', function() {
     ]);
   });
 
-  it('will not advance turns if the player is not ready', function() {
+  it('will not advance turns if the player x is not ready', function() {
     var game = gameStartingWith(boardWithMarks([
       '', '', '',
       '', '', '',

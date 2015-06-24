@@ -1,26 +1,20 @@
 (function() {
-  function HumanPlayer(mark) {
+  function HumanPlayer(mark, spacesToMove) {
     this._mark = mark;
-    this._spaceToMove = null;
-  }
-
-  HumanPlayer.prototype.willMoveAt = function(space) {
-    this._spaceToMove = space;
+    this._spacesToMove = spacesToMove;
   }
 
   HumanPlayer.prototype.update = function(board) {
   }
 
   HumanPlayer.prototype.isReady = function() {
-    return this._spaceToMove != null;
+    return this._spacesToMove.length > 0;
   }
 
   HumanPlayer.prototype.getMove = function() {
-    var spaceToMove = this._spaceToMove;
-    this._spaceToMove = null;
     return {
       mark: this._mark,
-      space: spaceToMove
+      space: this._spacesToMove.shift()
     };
   }
 

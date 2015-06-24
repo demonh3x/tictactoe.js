@@ -8,6 +8,9 @@
     this._spaceToMove = space;
   }
 
+  HumanPlayer.prototype.update = function(board) {
+  }
+
   HumanPlayer.prototype.isReady = function() {
     return this._spaceToMove != null;
   }

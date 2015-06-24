@@ -47,4 +47,10 @@ describe('Human player', function() {
     });
     expect(player.isReady()).toEqual(false);
   });
+
+  it('can be updated with the board', function() {
+    var player = new Tictactoe.HumanPlayer('o');
+    var board = {};
+    player.update(board);
+  });
 });

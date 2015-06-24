@@ -1,10 +1,6 @@
 (function() {
-  function BoardUi() {
-    this._onMoveListener = function(){};
-  };
-
-  BoardUi.prototype.setOnMoveListener = function(listener) {
-    this._onMoveListener = listener;
+  function BoardUi(spacesToMove) {
+    this._spacesToMove = spacesToMove;
   };
 
   BoardUi.prototype.update = function(board) {
@@ -20,10 +16,10 @@
     var that = this;
 
     var domBoard = $('<div data-board>');
-    var domMarks = marks.map(function(mark, index) {
+    var domMarks = marks.map(function(mark, space) {
       var domMark = $('<div data-mark="' + valueFor(mark) + '"/>');
       domMark.click(function() {
-        that._onMoveListener(index);
+        that._spacesToMove.push(space);
       });
 
       return domMark;

@@ -1,17 +1,10 @@
 describe('The board interface', function() {
-  var movesHandler;
   var ui;
+  var spacesToMove;
 
   beforeEach(function() {
-    movesHandler = {
-      onMove: function(space) {
-        this.receivedSpaceToMove = space;
-      }
-    };
-    ui = new Tictactoe.BoardUi;
-    ui.setOnMoveListener(function(space){
-      movesHandler.onMove(space);
-    });
+    spacesToMove = [];
+    ui = new Tictactoe.BoardUi(spacesToMove);
   });
 
   afterEach(function() {
@@ -20,9 +13,9 @@ describe('The board interface', function() {
 
   it('displays an empty board', function() {
     var emptyBoard = board([
-      null, null, null,
-      null, null, null,
-      null, null, null
+      '', '', '',
+      '', '', '',
+      '', '', ''
     ]);
     ui.update(emptyBoard);
 
@@ -35,9 +28,9 @@ describe('The board interface', function() {
 
   it('displays a board with some marks', function() {
     var boardWithSomeMarks = board([
-      'x',  'o',  null,
-      null, 'x',  null,
-      null, 'x',  'o'
+      'x', 'o', '',
+      '',  'x', '',
+      '',  'x', 'o'
     ]);
     ui.update(boardWithSomeMarks);
 
@@ -48,28 +41,42 @@ describe('The board interface', function() {
     ]);
   });
 
-  it('sends the move to the handler when clicking the first space', function() {
+  it('stores the move when clicking the first space', function() {
     var emptyBoard = board([
-      null, null, null,
-      null, null, null,
-      null, null, null
+      '', '', '',
+      '', '', '',
+      '', '', ''
     ]);
     ui.update(emptyBoard);
     nthSpace(0).click();
 
-    expect(movesHandler.receivedSpaceToMove).toEqual(0);
+    expect(spacesToMove).toEqual([0]);
   });
 
-  it('sends the move to the handler when clicking the fifth space', function() {
+  it('stores the move when clicking the fifth space', function() {
     var emptyBoard = board([
-      null, null, null,
-      null, null, null,
-      null, null, null
+      '', '', '',
+      '', '', '',
+      '', '', ''
     ]);
     ui.update(emptyBoard);
     nthSpace(4).click();
 
-    expect(movesHandler.receivedSpaceToMove).toEqual(4);
+    expect(spacesToMove).toEqual([4]);
+  });
+
+  it('queues the moves when clicking several times', function() {
+    var emptyBoard = board([
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ]);
+    ui.update(emptyBoard);
+    nthSpace(1).click();
+    nthSpace(2).click();
+    nthSpace(5).click();
+
+    expect(spacesToMove).toEqual([1, 2, 5]);
   });
 
   function board(marks) {

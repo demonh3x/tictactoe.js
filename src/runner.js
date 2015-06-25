@@ -2,7 +2,7 @@
   function run(containerId, clock) {
     clock = clock || {
       onTick: function(callback){
-        setInterval(callback, 10);
+        setInterval(callback, 100);
       }
     };
 

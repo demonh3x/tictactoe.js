@@ -4,8 +4,9 @@ describe('The board interface', function() {
 
   beforeEach(function() {
     $('body').append('<div id="board"></div>');
+    rules = new Tictactoe.Rules();
     spacesToMove = [];
-    ui = new Tictactoe.BoardUi('board', spacesToMove);
+    ui = new Tictactoe.BoardUi('board', rules, spacesToMove);
   });
 
   afterEach(function() {
@@ -40,6 +41,84 @@ describe('The board interface', function() {
         '',  'x', '',
         '',  'x', 'o'
     ]);
+  });
+
+  it('updates the board in place', function() {
+    var emptyBoard = board([
+      '', '', '',
+      '', '', '',
+      '', '', ''
+    ]);
+    ui.update(emptyBoard);
+
+    var boardWithSomeMarks = board([
+      'x', 'o', '',
+      '',  'x', '',
+      '',  'x', 'o'
+    ]);
+    ui.update(boardWithSomeMarks);
+
+    expect(displayedMarks()).toEqual([
+        'x', 'o', '',
+        '',  'x', '',
+        '',  'x', 'o'
+    ]);
+  });
+
+  it('does not display the result when is not finished', function() {
+    var ongoingBoard = board([
+      'x', 'o', 'x',
+      'x', 'x', 'o',
+      'o', '',  'o'
+    ]);
+    ui.update(ongoingBoard);
+
+    expectNoResult();
+  });
+
+  it('displays the draw result', function() {
+    var drawBoard = board([
+      'x', 'o', 'x',
+      'x', 'x', 'o',
+      'o', 'x', 'o'
+    ]);
+    ui.update(drawBoard);
+
+    expectDraw();
+  });
+
+  it('displays player x as the winner', function() {
+    var boardWonByX = board([
+      'x', 'o', '',
+      'x', 'o', '',
+      'x', '',  ''
+    ]);
+    ui.update(boardWonByX);
+
+    expectWinner('x');
+  });
+
+  it('displays player o as the winner', function() {
+    var boardWonByO = board([
+      'x', 'o', 'x',
+      'x', 'o', '',
+      '',  'o', ''
+    ]);
+    ui.update(boardWonByO);
+
+    expectWinner('o');
+  });
+
+  it('updates the result in place', function() {
+    var boardWonByO = board([
+      'x', 'o', 'x',
+      'x', 'o', '',
+      '',  'o', ''
+    ]);
+    ui.update(boardWonByO);
+    ui.update(boardWonByO);
+
+    expectOnlyOneResult();
   });
 
   it('stores the move when clicking the first space', function() {
@@ -92,5 +171,21 @@ describe('The board interface', function() {
 
   function nthSpace(spaceIndex) {
     return $('#board [data-board] [data-mark]:nth-child(' + (spaceIndex +1) + ')');
+  }
+
+  function expectNoResult() {
+    expect($('#board [data-result=""]').size()).toEqual(1)
+  }
+
+  function expectWinner(mark) {
+    expect($('#board [data-result="' + mark + '"]').size()).toEqual(1)
+  }
+
+  function expectDraw() {
+    expect($('#board [data-result="draw"]').size()).toEqual(1)
+  }
+
+  function expectOnlyOneResult() {
+    expect($('#board [data-result]').size()).toEqual(1)
   }
 });

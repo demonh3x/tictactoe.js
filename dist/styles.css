@@ -1,0 +1,45 @@
+body, input[type=submit] {
+  font-family: monospace;
+  font-size: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#tictactoe, .options div, .options p, .board, .new-game {
+  margin: auto;
+  display: table;
+}
+
+.options div {
+  padding-bottom: 1em;
+}
+
+.board {
+  height: 4em;
+  width: 4em;
+}
+
+.mark {
+  min-height: 33%;
+  min-width: 33%;
+  float: left;
+  text-align: center;
+}
+
+.mark.empty:after {
+  content: "-";
+}
+
+.mark.empty:hover:after {
+  content: "#";
+}
+
+.mark.x:after {
+  content: "x";
+}
+
+.mark.o:after {
+  content: "o";
+}

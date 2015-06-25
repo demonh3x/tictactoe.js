@@ -1,17 +1,19 @@
 (function() {
   const TEMPLATE =
     '<form class="options">' +
-      '<p>Player x</p>' +
-      '<ul>' +
-        '<li><input type="radio" name="x" value="human" checked/>Human</li>' +
-        '<li><input type="radio" name="x" value="computer"/>Computer</li>' +
-      '</ul>' +
-      '<p>Player o</p>' +
-      '<ul>' +
-        '<li><input type="radio" name="o" value="human" checked/>Human</li>' +
-        '<li><input type="radio" name="o" value="computer"/>Computer</li>' +
-      '</ul>' +
-      '<input type="submit" value="Start game"/>' +
+      '<div>' +
+        '<p>Player x</p>' +
+        '<input type="radio" name="x" value="human" checked/>Human' +
+        '<input type="radio" name="x" value="computer"/>Computer' +
+      '</div>' +
+      '<div>' +
+        '<p>Player o</p>' +
+        '<input type="radio" name="o" value="human" checked/>Human' +
+        '<input type="radio" name="o" value="computer"/>Computer' +
+      '</div>' +
+      '<div>' +
+        '<input type="submit" value="Start game"/>' +
+      '</div>' +
     '</form>';
 
   function OptionsUi(containerId) {

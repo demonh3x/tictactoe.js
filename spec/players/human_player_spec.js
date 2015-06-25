@@ -60,7 +60,7 @@ describe('Human player', function() {
   it('can be updated with the board', function() {
     var player = createPlayer('o');
     var board = {};
-    player.update(board);
+    expect(function(){ player.update(board); }).not.toThrow();
   });
 
   function createPlayer(mark) {

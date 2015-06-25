@@ -2,17 +2,11 @@
 <html>
   <head>
     <title>Tictactoe</title>
+    <link rel="stylesheet" type="text/css" href="dist/styles.css">
     <script src="dist/tictactoe.js"></script>
-    <style>
-    </style>
-    <script>
-      $(document).ready(function() {
-        var ui = new Tictactoe.BoardUi();
-        ui.setOnMoveListener(function(space){console.log(space);});
-        ui.update([null, null]);
-      });
-    </script>
   </head>
   <body>
+    <div id='tictactoe'></div>
+    <script>Tictactoe.run('tictactoe');</script>
   </body>
 </html>

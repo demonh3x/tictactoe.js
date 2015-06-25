@@ -1,21 +1,25 @@
 (function() {
+  const TEMPLATE =
+    '<form class="options">' +
+      '<p>Player x</p>' +
+      '<ul>' +
+        '<li><input type="radio" name="x" value="human" checked/>Human</li>' +
+        '<li><input type="radio" name="x" value="computer"/>Computer</li>' +
+      '</ul>' +
+      '<p>Player o</p>' +
+      '<ul>' +
+        '<li><input type="radio" name="o" value="human" checked/>Human</li>' +
+        '<li><input type="radio" name="o" value="computer"/>Computer</li>' +
+      '</ul>' +
+      '<input type="submit" value="Start game"/>' +
+    '</form>';
+
   function OptionsUi(containerId) {
     this._containerId = containerId;
   };
 
   OptionsUi.prototype.selectPlayers = function(onSelectedListener) {
-    var xHuman = $('<input type="radio" name="x" value="human" checked/>');
-    var xComputer = $('<input type="radio" name="x" value="computer"/>');
-    var oHuman = $('<input type="radio" name="o" value="human" checked/>');
-    var oComputer = $('<input type="radio" name="o" value="computer"/>');
-    var submit = $('<input type="submit"/>');
-
-    var form = $('<form/>');
-    form.append(xHuman);
-    form.append(xComputer);
-    form.append(oHuman);
-    form.append(oComputer);
-    form.append(submit);
+    var form = $(TEMPLATE);
 
     $('#' + this._containerId).append(form);
 

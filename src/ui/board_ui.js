@@ -50,6 +50,11 @@
     marks.forEach(function(mark, space) {
       var domMark = template.find('[data-mark]:nth-child(' + (space +1) + ')');
       domMark.attr('data-mark', valueFor(mark));
+      if (mark) {
+        domMark.addClass(mark);
+      } else {
+        domMark.addClass('empty');
+      }
       domMark.click(function() {
         that._spacesToMove.push(space);
       });

@@ -1,21 +1,18 @@
 (function() {
-  function BoardUi(spacesToMove) {
+  function BoardUi(containerId, spacesToMove) {
+    this._containerId = containerId;
     this._spacesToMove = spacesToMove;
   };
 
   BoardUi.prototype.update = function(board) {
-    this._clear();
-    this._createBoardWith(board.marks());
-  };
-
-  BoardUi.prototype._clear = function() {
     this._board && this._board.remove();
+    this._board = this._createBoardWith(board.marks());
+    this._addToDom(this._board);
   };
 
   BoardUi.prototype._createBoardWith = function(marks) {
     var that = this;
 
-    var domBoard = $('<div data-board>');
     var domMarks = marks.map(function(mark, space) {
       var domMark = $('<div data-mark="' + valueFor(mark) + '"/>');
       domMark.click(function() {
@@ -24,11 +21,16 @@
 
       return domMark;
     });
+
+    var domBoard = $('<div data-board>');
     domBoard.append(domMarks);
 
-    this._board = domBoard;
-    $('body').append(domBoard);
+    return domBoard;
   };
+
+  BoardUi.prototype._addToDom = function(content) {
+    $('#' + this._containerId).append(content);
+  }
 
   function valueFor(mark) {
     return mark === null? '' : mark;

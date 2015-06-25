@@ -3,12 +3,13 @@ describe('The board interface', function() {
   var spacesToMove;
 
   beforeEach(function() {
+    $('body').append('<div id="board"></div>');
     spacesToMove = [];
-    ui = new Tictactoe.BoardUi(spacesToMove);
+    ui = new Tictactoe.BoardUi('board', spacesToMove);
   });
 
   afterEach(function() {
-    ui._clear();
+    $('#board').remove();
   });
 
   it('displays an empty board', function() {
@@ -84,12 +85,12 @@ describe('The board interface', function() {
   }
 
   function displayedMarks() {
-    return $.map($('[data-board] [data-mark]'), function(space) {
+    return $.map($('#board [data-board] [data-mark]'), function(space) {
       return $(space).attr('data-mark');
     });
   }
 
   function nthSpace(spaceIndex) {
-    return $('[data-board] [data-mark]:nth-child(' + (spaceIndex +1) + ')');
+    return $('#board [data-board] [data-mark]:nth-child(' + (spaceIndex +1) + ')');
   }
 });

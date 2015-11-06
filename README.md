@@ -1,5 +1,5 @@
 # tictactoe.js
-[![TravisCI](https://travis-ci.org/demonh3x/tictactoe.js.svg?branch=master)](https://travis-ci.org/demonh3x/tictactoe.js)
+[![Build Status](https://travis-ci.org/mateuadsuara/tictactoe.js.svg?branch=master)](https://travis-ci.org/mateuadsuara/tictactoe.js)
 
 ## Description
 
